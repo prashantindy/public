@@ -11,7 +11,8 @@ async function init() {
     msg = await getMessage(rowId, datatableId);
     // console.log("message: " + JSON.stringify(msg));
     // document.getElementById('output')!.textContent = greet('Prashant');
-    document.getElementById('output').textContent = JSON.stringify(msg);
+    // document.getElementById('output')!.textContent = JSON.stringify(msg);
+    document.getElementById('output').textContent = JSON.stringify(msg, undefined, 2);
 }
 // function greet(name: string) {
 //     return `Hello, ${name}!`;
