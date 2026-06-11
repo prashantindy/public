@@ -1,17 +1,16 @@
 async function init() {
     console.log('App initialized.');
     document.getElementById('output').textContent = greet('Prashant');
-    let msg;
-    msg = await getMessage();
-    console.log("message: " + JSON.stringify(msg));
     console.log("host: " + window.location.host);
     console.log("hostname: " + window.location.hostname);
     console.log("origin: " + window.location.origin);
     console.log("search: " + window.location.search);
     const params = new URLSearchParams(window.location.search);
-    console.log("params: " + params.toString());
     const value = params.get('rowId');
     console.log("rowId: " + value);
+    let msg;
+    msg = await getMessage();
+    console.log("message: " + JSON.stringify(msg));
 }
 function greet(name) {
     return `Hello, ${name}!`;
