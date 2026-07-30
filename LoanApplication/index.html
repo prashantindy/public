@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="app.js"></script>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+    <title>Loan Application</title>
+    <style>
+        :root {
+            --navy: #0f2742;
+            --blue: #1f5faa;
+            --sky: #eaf2fb;
+            --ink: #1f2937;
+            --muted: #5b6675;
+            --border: #d7e0ea;
+            --card: #ffffff;
+            --bg: #f4f7fb;
+            --accent: #2f7dd1;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--ink);
+            background:
+                linear-gradient(180deg, rgba(15, 39, 66, 0.96) 0 120px, transparent 120px),
+                var(--bg);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .topbar {
+            background: var(--navy);
+            color: #fff;
+            font-size: 14px;
+            padding: 10px 0;
+        }
+
+        .container {
+            width: min(1120px, calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        .topbar .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brandbar {
+            padding: 18px 0 26px;
+            color: #fff;
+        }
+
+        .brandrow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .mark {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #2e7bd0, #7cb4f1);
+            box-shadow: 0 12px 24px rgba(31, 95, 170, 0.35);
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: 22px;
+            line-height: 1.15;
+            letter-spacing: 0.01em;
+        }
+
+        .brand p {
+            margin: 4px 0 0;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+        }
+
+        .hero {
+            margin-top: 8px;
+            padding: 28px;
+            border-radius: 26px;
+            background:
+                linear-gradient(135deg, rgba(15, 39, 66, 0.97), rgba(31, 95, 170, 0.9)),
+                url('') center/cover no-repeat;
+            color: #fff;
+            box-shadow: 0 20px 40px rgba(15, 39, 66, 0.18);
+            overflow: hidden;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 22px;
+            align-items: center;
+        }
+
+        .hero h2 {
+            margin: 0 0 12px;
+            font-size: clamp(30px, 4vw, 46px);
+            line-height: 1.06;
+        }
+
+        .hero p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.84);
+            font-size: 16px;
+            line-height: 1.7;
+            max-width: 62ch;
+        }
+
+        .hero-panel {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(10px);
+            border-radius: 22px;
+            padding: 18px;
+        }
+
+        .hero-panel strong {
+            display: block;
+            font-size: 14px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .hero-panel ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            gap: 10px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .hero-panel li {
+            padding-left: 18px;
+            position: relative;
+            color: rgba(255, 255, 255, 0.92);
+        }
+
+        .hero-panel li::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: #8ac0ff;
+            position: absolute;
+            left: 0;
+            top: 8px;
+        }
+
+        .content {
+            margin: 28px auto 60px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+        }
+
+        .section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            box-shadow: 0 10px 30px rgba(15, 39, 66, 0.06);
+            overflow: hidden;
+        }
+
+        .section-head {
+            padding: 18px 22px;
+            background: linear-gradient(180deg, #f9fbfe, #f3f7fc);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-head h3 {
+            margin: 0;
+            font-size: 18px;
+            color: var(--navy);
+        }
+
+        .section-head p {
+            margin: 8px 0 0;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.55;
+        }
+
+        form {
+            padding: 22px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .hint {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: -2px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 12px 14px;
+            font: inherit;
+            background: #fff;
+            color: var(--ink);
+            outline: none;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(47, 125, 209, 0.12);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .section-footer {
+            padding: 0 22px 22px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .consent {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.5;
+            max-width: 60ch;
+        }
+
+        .consent input {
+            width: auto;
+            margin-top: 4px;
+            accent-color: var(--blue);
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: 0;
+            border-radius: 14px;
+            padding: 13px 18px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .primary {
+            background: linear-gradient(135deg, var(--blue), #4b8cd4);
+            color: #fff;
+            box-shadow: 0 10px 22px rgba(31, 95, 170, 0.24);
+        }
+
+        .secondary {
+            background: #eef4fb;
+            color: var(--navy);
+            border: 1px solid var(--border);
+        }
+
+        .mini-card {
+            display: grid;
+            gap: 10px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            padding: 22px;
+        }
+
+        .stat {
+            background: var(--sky);
+            border: 1px solid #d9e7f7;
+            border-radius: 18px;
+            padding: 16px;
+            min-height: 96px;
+        }
+
+        .stat span {
+            display: block;
+            font-size: 12px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 8px;
+        }
+
+        .stat strong {
+            font-size: 18px;
+            color: var(--navy);
+        }
+
+        #toggleDebugBtn {
+            background: #0f2742;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-size: 10px;
+        }
+
+        @media (max-width: 860px) {
+
+            .hero-grid,
+            .grid,
+            .mini-card {
+                grid-template-columns: 1fr;
+            }
+
+            .section-footer {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .actions {
+                width: 100%;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div>
+        <button id="toggleDebugBtn" onclick="toggleDebug('debugSection')">Show Debug</button>
+
+        <div class="topbar hidden" id="debugSection" class="hidden">
+            <pre id="output"></pre>
+        </div>
+    </div>
+
+    <div class="topbar">
+        <div class="container">
+            <div>Contact Us Today! (888) 574-6572</div>
+            <div>Loan Application Support | Mon-Fri 8:00 AM - 6:00 PM</div>
+            <div>support@yourinstitution.com</div>
+
+            <div class="brandrow">
+                <div class="brand">
+                    <div class="mark" aria-hidden="true"></div>
+                    <div>
+                        <h1>Community Lending Portal</h1>
+                        <p>Apply for a personal, auto, or home loan online</p>
+                    </div>
+                </div>
+                <div style="color: rgba(255,255,255,0.85); font-size: 14px;">Secure • Fast • Friendly</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container brandbar">
+
+
+        <div class="hero">
+            <div class="hero-grid">
+                <div>
+                    <h2>Loan application made simple.</h2>
+                    <p>
+                        Complete the form below to start your loan request. The layout is inspired by a clean,
+                        corporate financial-services page: a clear top contact strip, prominent headline area,
+                        and spacious sections that keep the form easy to scan.
+                    </p>
+                </div>
+                <div class="hero-panel">
+                    <strong>What you will need</strong>
+                    <ul>
+                        <li>Government-issued ID</li>
+                        <li>Income and employment details</li>
+                        <li>Requested loan amount and purpose</li>
+                        <li>Consent to review credit information</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="container content">
+        <section class="section">
+            <div class="section-head">
+                <h3>Application Overview</h3>
+                <p>Use these fields to capture basic customer, employment, and loan request information.</p>
+            </div>
+            <div class="mini-card">
+                <div class="stat"><span>Page Type</span><strong>Responsive HTML</strong></div>
+                <div class="stat"><span>Style</span><strong>Blue / White Corporate</strong></div>
+                <div class="stat"><span>Layout</span><strong>Card-based Form</strong></div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-head">
+                <h3>Loan Application Form</h3>
+                <p>Each control includes a matching <code>id</code> and label for straightforward scripting and
+                    accessibility.</p>
+            </div>
+
+            <form>
+                <div class="grid">
+                    <div class="field">
+                        <label for="full_name">Full Name</label>
+                        <input type="text" id="full_name" name="full_name" />
+                    </div>
+
+                    <div class="field">
+                        <label for="date_of_birth">Date of Birth</label>
+                        <input type="date" id="date_of_birth" name="date_of_birth" />
+                    </div>
+
+                    <div class="field">
+                        <label for="email_address">Email Address</label>
+                        <input type="email" id="email_address" name="email_address" />
+                    </div>
+
+                    <div class="field">
+                        <label for="phone_number">Phone Number</label>
+                        <input type="tel" id="phone_number" name="phone_number" />
+                    </div>
+
+                    <div class="field">
+                        <label for="employment_status">Employment Status</label>
+                        <select id="employment_status" name="employment_status">
+                            <option value="">Select one</option>
+                            <option value="employed">Employed</option>
+                            <option value="self_employed">Self-Employed</option>
+                            <option value="unemployed">Unemployed</option>
+                            <option value="retired">Retired</option>
+                            <option value="student">Student</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="annual_income">Annual Income</label>
+                        <input type="number" id="annual_income" name="annual_income" step="0.01" />
+                    </div>
+
+                    <div class="field">
+                        <label for="loan_type">Loan Type</label>
+                        <select id="loan_type" name="loan_type">
+                            <option value="">Select one</option>
+                            <option value="personal">Personal Loan</option>
+                            <option value="auto">Auto Loan</option>
+                            <option value="mortgage">Mortgage</option>
+                            <option value="business">Business Loan</option>
+                            <option value="education">Education Loan</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="requested_amount">Requested Amount</label>
+                        <input type="number" id="requested_amount" name="requested_amount" step="0.01" />
+                    </div>
+
+                    <div class="field">
+                        <label for="loan_term">Loan Term (Months)</label>
+                        <input type="number" id="loan_term" name="loan_term" />
+                    </div>
+
+                    <div class="field">
+                        <label for="requested_rate">Requested Rate (Optional)</label>
+                        <input type="number" id="requested_rate" name="requested_rate" step="0.01" />
+                    </div>
+
+                    <div class="field">
+                        <label for="monthly_payment">Target Monthly Payment</label>
+                        <input type="number" id="monthly_payment" name="monthly_payment" step="0.01" />
+                    </div>
+
+                    <div class="field full">
+                        <label for="loan_purpose">Loan Purpose</label>
+                        <textarea id="loan_purpose" name="loan_purpose"></textarea>
+                    </div>
+
+                    <div class="field full">
+                        <label for="additional_notes">Additional Notes</label>
+                        <textarea id="additional_notes" name="additional_notes"></textarea>
+                    </div>
+                </div>
+
+                <div class="section-footer">
+                    <label class="consent" for="consent_checkbox">
+                        <input type="checkbox" id="consent_checkbox" name="consent_checkbox" />
+                        <span>
+                            I confirm that the information provided is accurate and I authorize the institution to
+                            review
+                            my application and related credit information.
+                        </span>
+                    </label>
+
+                    <div class="actions">
+                        <button type="reset" class="secondary" id="reset_button">Reset</button>
+                        <button type="submit" class="primary" id="submit_button">Submit Application</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </main>
+</body>
+
+</html>
