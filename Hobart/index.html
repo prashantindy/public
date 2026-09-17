@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="../lib/app.js"></script>
+    <title>Support Request — Zebra Technologies</title>
+    <style>
+        :root {
+            --black: #000000;
+            --charcoal: #222222;
+            --mid: #555555;
+            --border: #d4d4d4;
+            --smoke: #f5f5f5;
+            --white: #ffffff;
+            --yellow: #0099ff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+            color: var(--charcoal);
+            background: var(--white);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .topbar {
+            background: var(--black);
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 13px;
+            padding: 9px 0;
+            border-bottom: 2px solid var(--yellow);
+        }
+
+        .container {
+            width: min(860px, calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        .topbar .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brandbar {
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+        }
+
+        .brandrow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .brand img {
+            height: 30px;
+            width: auto;
+            display: block;
+        }
+
+        .brand-divider {
+            width: 1px;
+            height: 30px;
+            background: var(--border);
+        }
+
+        .brand-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        .brand-sub {
+            font-size: 12px;
+            color: var(--mid);
+            margin-top: 2px;
+        }
+
+        .brand-tag {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--mid);
+        }
+
+        .hero-wrap {
+            background: var(--black);
+            color: var(--white);
+            padding: 40px 0 36px;
+            position: relative;
+        }
+
+        .hero-wrap::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--yellow);
+        }
+
+        .hero-eyebrow {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--yellow);
+            margin-bottom: 10px;
+        }
+
+        .hero h1 {
+            margin: 0 0 10px;
+            font-size: clamp(24px, 3.5vw, 38px);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.08;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--yellow);
+        }
+
+        .hero p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            line-height: 1.7;
+            max-width: 60ch;
+        }
+
+        .content {
+            margin: 32px auto 64px;
+        }
+
+        .card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+            overflow: hidden;
+        }
+
+        .card-head {
+            padding: 16px 24px;
+            background: var(--smoke);
+            border-bottom: 1px solid var(--border);
+            border-left: 4px solid var(--yellow);
+        }
+
+        .card-head h2 {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--black);
+        }
+
+        .card-head p {
+            margin: 5px 0 0;
+            font-size: 13px;
+            color: var(--mid);
+            line-height: 1.5;
+        }
+
+        form {
+            padding: 24px;
+            display: grid;
+            gap: 18px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--black);
+            letter-spacing: 0.01em;
+        }
+
+        .hint {
+            font-size: 12px;
+            color: var(--mid);
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 11px 13px;
+            font: inherit;
+            font-size: 14px;
+            background: var(--white);
+            color: var(--charcoal);
+            outline: none;
+            transition: border-color 0.12s, box-shadow 0.12s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--black);
+            box-shadow: 0 0 0 3px rgba(255, 185, 0, 0.28);
+        }
+
+        textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .tag-wrap {
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 8px 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            cursor: text;
+            min-height: 46px;
+            align-items: center;
+            background: var(--white);
+            transition: border-color 0.12s, box-shadow 0.12s;
+        }
+
+        .tag-wrap:focus-within {
+            border-color: var(--black);
+            box-shadow: 0 0 0 3px rgba(255, 185, 0, 0.28);
+        }
+
+        .tag {
+            background: var(--black);
+            color: var(--white);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 3px 8px 3px 10px;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            letter-spacing: 0.04em;
+        }
+
+        .tag button {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 15px;
+            line-height: 1;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .tag button:hover {
+            color: var(--yellow);
+        }
+
+        .tag-input {
+            border: none;
+            outline: none;
+            padding: 2px 4px;
+            font: inherit;
+            font-size: 14px;
+            flex: 1;
+            min-width: 130px;
+            background: transparent;
+            box-shadow: none !important;
+        }
+
+        .tag-hint {
+            font-size: 11px;
+            color: var(--mid);
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2px 0;
+        }
+
+        .card-footer {
+            padding: 0 24px 24px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: none;
+            border-radius: 2px;
+            padding: 12px 22px;
+            font: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 0.01em;
+            transition: background 0.12s;
+        }
+
+        .btn-primary {
+            background: var(--yellow);
+            color: var(--black);
+            border: 2px solid var(--yellow);
+        }
+
+        .btn-primary:hover {
+            background: #e6a700;
+            border-color: #e6a700;
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--black);
+            border: 2px solid var(--black);
+        }
+
+        .btn-secondary:hover {
+            background: var(--smoke);
+        }
+
+        .success-banner {
+            display: none;
+            background: #f0faf0;
+            border: 1px solid #a3d9a3;
+            border-left: 4px solid #2e8b2e;
+            border-radius: 2px;
+            padding: 16px 20px;
+            margin: 0 24px 4px;
+            font-size: 14px;
+            color: #1a5c1a;
+        }
+
+        .success-banner strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 15px;
+        }
+
+        .invalid {
+            border-color: #cc2200 !important;
+        }
+
+        #toggleDebugBtn {
+            padding: 6px 12px;
+            font-size: 8px;
+            margin: 8px;
+        }
+
+        @media (max-width: 600px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .card-footer {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div>
+        <button id="toggleDebugBtn" onclick="toggleDebug('debugSection')">Show Debug</button>
+
+        <div class="topbar hidden" id="debugSection" class="hidden">
+            <pre id="output"></pre>
+        </div>
+    </div>
+
+    <div class="topbar">
+        <div class="container">
+            <div>Support: (888) 574-6572</div>
+            <div>Mon–Fri 8:00 AM – 6:00 PM ET</div>
+            <div>support@zebra.com</div>
+        </div>
+    </div>
+
+    <header class="brandbar">
+        <div class="container">
+            <div class="brandrow">
+                <div class="brand">
+                    <img src="logo.png" alt="Company Logo" />
+                    <div class="brand-divider"></div>
+                    <div>
+                        <div class="brand-label">Technical Support</div>
+                        <div class="brand-sub">Submit a support request for your Zebra device</div>
+                    </div>
+                </div>
+                <div class="brand-tag">Enterprise Support Portal</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="hero-wrap">
+        <div class="container">
+            <div class="hero-eyebrow">Device Support</div>
+            <h1>How can we <em>help?</em></h1>
+            <p>Tell us about your device and the issue you're experiencing. The more detail you provide, the faster we
+                can resolve it.</p>
+        </div>
+    </div>
+
+    <main class="content">
+        <div class="container">
+            <div class="card">
+                <div class="card-head">
+                    <h2>Support Request Form</h2>
+                    <p>Provide your device details and a description of the issue. Error codes are optional but help
+                        speed up diagnosis.</p>
+                </div>
+
+                <div class="success-banner" id="successBanner">
+                    <strong>Request submitted successfully.</strong>
+                    A technician will contact you within 1 business day. Your case number is <strong
+                        id="caseNumber"></strong>.
+                </div>
+
+                <form id="supportForm" novalidate>
+                    <div class="grid-2">
+
+                        <div class="field">
+                            <label for="company_name">Company Name</label>
+                            <input type="text" id="company_name" name="company_name" placeholder="Acme Logistics Inc."
+                                autocomplete="organization" />
+                        </div>
+
+                        <div class="field">
+                            <label for="contact_name">Contact Name</label>
+                            <input type="text" id="contact_name" name="contact_name" placeholder="Jane Smith"
+                                autocomplete="name" />
+                        </div>
+
+                        <div class="field">
+                            <label for="product_model">Product Model</label>
+                            <select id="product_model" name="product_model">
+                                <option value="">Select a product…</option>
+                                <optgroup label="Printers">
+                                    <option value="ZD421">ZD421 — Desktop Printer</option>
+                                    <option value="ZD621">ZD621 — Desktop Printer</option>
+                                    <option value="ZT411">ZT411 — Industrial Printer</option>
+                                    <option value="ZT610">ZT610 — Industrial Printer</option>
+                                    <option value="ZQ630">ZQ630 — Mobile Printer</option>
+                                </optgroup>
+                                <optgroup label="Mobile Computers">
+                                    <option value="TC52">TC52 — Touch Computer</option>
+                                    <option value="TC72">TC72 — Touch Computer</option>
+                                    <option value="MC9300">MC9300 — Mobile Computer</option>
+                                    <option value="EC50">EC50 — Enterprise Smartphone</option>
+                                </optgroup>
+                                <optgroup label="Scanners">
+                                    <option value="DS2208">DS2208 — Handheld Scanner</option>
+                                    <option value="DS8178">DS8178 — Cordless Scanner</option>
+                                    <option value="LI3678">LI3678 — 1D Scanner</option>
+                                    <option value="RS6100">RS6100 — Ring Scanner</option>
+                                </optgroup>
+                                <optgroup label="RFID">
+                                    <option value="FX9600">FX9600 — Fixed RFID Reader</option>
+                                    <option value="RFD40">RFD40 — RFID Sled</option>
+                                </optgroup>
+                                <option value="other">Other / Not Listed</option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label for="serial_number">Serial Number</label>
+                            <input type="text" id="serial_number" name="serial_number" placeholder="e.g. D19J123456"
+                                autocomplete="off" spellcheck="false" />
+                            <span class="hint">Found on the label on the underside or back of the device.</span>
+                        </div>
+
+                    </div>
+
+                    <hr class="divider" />
+
+                    <div class="field">
+                        <label for="issue_description">Issue Description</label>
+                        <textarea id="issue_description" name="issue_description"
+                            placeholder="Describe what is happening, when it started, and what you were doing when the problem occurred…"></textarea>
+                    </div>
+
+                    <div class="field">
+                        <label>Error Codes <span style="font-weight:400;color:var(--mid)">(optional)</span></label>
+                        <div class="tag-wrap" id="tagWrap" onclick="document.getElementById('tagInput').focus()">
+                            <input type="text" id="tagInput" class="tag-input"
+                                placeholder="Type a code and press Enter or comma…" autocomplete="off" />
+                        </div>
+                        <input type="hidden" id="error_codes" name="error_codes" />
+                        <span class="tag-hint">e.g. MEDIA OUT, 01101, ERROR 0x0005 — press Enter or , after each
+                            one</span>
+                    </div>
+
+                    <div class="card-footer" style="padding:4px 0 0">
+                        <button type="button" class="btn-secondary" id="resetBtn">Clear</button>
+                        <button type="submit" class="btn-primary">Submit Request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // ── Tag input for error codes ──
+        const tagWrap = document.getElementById('tagWrap');
+        const tagInput = document.getElementById('tagInput');
+        const hidden = document.getElementById('error_codes');
+        let tags = [];
+
+        function renderTags() {
+            tagWrap.querySelectorAll('.tag').forEach(t => t.remove());
+            tags.forEach((code, i) => {
+                const tag = document.createElement('span');
+                tag.className = 'tag';
+                tag.innerHTML = `${code}<button type="button" aria-label="Remove ${code}">&#x2715;</button>`;
+                tag.querySelector('button').onclick = () => { tags.splice(i, 1); renderTags(); };
+                tagWrap.insertBefore(tag, tagInput);
+            });
+            hidden.value = tags.join(', ');
+        }
+
+        tagInput.addEventListener('keydown', e => {
+            if ((e.key === 'Enter' || e.key === ',') && tagInput.value.trim()) {
+                e.preventDefault();
+                const val = tagInput.value.replace(/,/g, '').trim().toUpperCase();
+                if (val && !tags.includes(val)) { tags.push(val); renderTags(); }
+                tagInput.value = '';
+            }
+            if (e.key === 'Backspace' && !tagInput.value && tags.length) {
+                tags.pop(); renderTags();
+            }
+        });
+
+        tagInput.addEventListener('blur', () => {
+            const val = tagInput.value.replace(/,/g, '').trim().toUpperCase();
+            if (val && !tags.includes(val)) { tags.push(val); renderTags(); tagInput.value = ''; }
+        });
+
+        // ── Validation & submit ──
+        const required = ['company_name', 'contact_name', 'product_model', 'serial_number', 'issue_description'];
+
+        document.getElementById('supportForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            let valid = true;
+            required.forEach(id => {
+                const el = document.getElementById(id);
+                if (!el.value.trim()) { el.classList.add('invalid'); valid = false; }
+                else el.classList.remove('invalid');
+            });
+            if (!valid) return;
+
+            const caseNum = 'ZBR-' + Math.floor(100000 + Math.random() * 900000);
+            document.getElementById('caseNumber').textContent = caseNum;
+            const banner = document.getElementById('successBanner');
+            banner.style.display = 'block';
+            banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            this.reset();
+            tags = []; renderTags();
+        });
+
+        required.forEach(id => {
+            document.getElementById(id).addEventListener('input', function () {
+                if (this.value.trim()) this.classList.remove('invalid');
+            });
+        });
+
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            document.getElementById('supportForm').reset();
+            tags = []; renderTags();
+            required.forEach(id => document.getElementById(id).classList.remove('invalid'));
+            document.getElementById('successBanner').style.display = 'none';
+        });
+    </script>
+
+</body>
+
+</html>
