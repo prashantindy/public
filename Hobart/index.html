@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="module" src="../lib/app.js"></script>
-    <title>Support Request — Zebra Technologies</title>
+    <title>Support Request — Hobart</title>
     <style>
         :root {
             --black: #000000;
@@ -370,6 +370,27 @@
             font-size: 15px;
         }
 
+        .auth-banner {
+            background: #e8f5e9;
+            border: 1px solid #81c784;
+            border-left: 4px solid #2e7d32;
+            border-radius: 2px;
+            padding: 12px 16px;
+            margin: 0 24px 16px;
+            font-size: 13px;
+            color: #1b5e20;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .auth-banner::before {
+            content: "✓";
+            font-weight: bold;
+            font-size: 16px;
+            color: #2e7d32;
+        }
+
         .invalid {
             border-color: #cc2200 !important;
         }
@@ -410,7 +431,7 @@
         <div class="container">
             <div>Support: (888) 574-6572</div>
             <div>Mon–Fri 8:00 AM – 6:00 PM ET</div>
-            <div>support@zebra.com</div>
+            <div>support@hobart.com</div>
         </div>
     </div>
 
@@ -422,7 +443,7 @@
                     <div class="brand-divider"></div>
                     <div>
                         <div class="brand-label">Technical Support</div>
-                        <div class="brand-sub">Submit a support request for your Zebra device</div>
+                        <div class="brand-sub">Submit a support request for your Hobart product</div>
                     </div>
                 </div>
                 <div class="brand-tag">Enterprise Support Portal</div>
@@ -454,6 +475,10 @@
                         id="caseNumber"></strong>.
                 </div>
 
+                <div class="auth-banner">
+                    Customer authenticated
+                </div>
+
                 <form id="supportForm" novalidate>
                     <div class="grid-2">
 
@@ -473,28 +498,77 @@
                             <label for="product_model">Product Model</label>
                             <select id="product_model" name="product_model">
                                 <option value="">Select a product…</option>
-                                <optgroup label="Printers">
-                                    <option value="ZD421">ZD421 — Desktop Printer</option>
-                                    <option value="ZD621">ZD621 — Desktop Printer</option>
-                                    <option value="ZT411">ZT411 — Industrial Printer</option>
-                                    <option value="ZT610">ZT610 — Industrial Printer</option>
-                                    <option value="ZQ630">ZQ630 — Mobile Printer</option>
+                                <optgroup label="Commercial Dishwashers - Flight Type">
+                                    <option value="FT2000-Advansys">FT2000 Advansys</option>
+                                    <option value="FT2000-Base">FT2000 Base</option>
                                 </optgroup>
-                                <optgroup label="Mobile Computers">
-                                    <option value="TC52">TC52 — Touch Computer</option>
-                                    <option value="TC72">TC72 — Touch Computer</option>
-                                    <option value="MC9300">MC9300 — Mobile Computer</option>
-                                    <option value="EC50">EC50 — Enterprise Smartphone</option>
+                                <optgroup label="Commercial Dishwashers - Conveyor/Rack">
+                                    <option value="CL44-ADV">CL44 Advansys</option>
+                                    <option value="CL-Advansys">CL Advansys</option>
+                                    <option value="CL-Base">CL Base</option>
+                                    <option value="CL-Ventless">CL Ventless</option>
                                 </optgroup>
-                                <optgroup label="Scanners">
-                                    <option value="DS2208">DS2208 — Handheld Scanner</option>
-                                    <option value="DS8178">DS8178 — Cordless Scanner</option>
-                                    <option value="LI3678">LI3678 — 1D Scanner</option>
-                                    <option value="RS6100">RS6100 — Ring Scanner</option>
+                                <optgroup label="Commercial Dishwashers - Door Type">
+                                    <option value="AM16-Advansys">AM16 Advansys</option>
+                                    <option value="AM16-ASR">AM16 ASR</option>
+                                    <option value="AM16-Base">AM16 Base</option>
+                                    <option value="AM16SCB">AM16SCB</option>
                                 </optgroup>
-                                <optgroup label="RFID">
-                                    <option value="FX9600">FX9600 — Fixed RFID Reader</option>
-                                    <option value="RFD40">RFD40 — RFID Sled</option>
+                                <optgroup label="Commercial Dishwashers - Undercounter">
+                                    <option value="LXnR-Advansys">LXnR Advansys</option>
+                                    <option value="LXn-Base">LXn Base</option>
+                                    <option value="LXGn-ADA">LXGn ADA</option>
+                                </optgroup>
+                                <optgroup label="Commercial Dishwashers - Industrial">
+                                    <option value="FT1000i">FT1000i Industrial Washer</option>
+                                    <option value="CL64T">CL64T Tote Washer</option>
+                                </optgroup>
+                                <optgroup label="Commercial Dishwashers - Waste">
+                                    <option value="WastePro-1260">WastePro 1260</option>
+                                    <option value="Food-Waste-Disposer">Food Waste Disposer</option>
+                                </optgroup>
+                                <optgroup label="Commercial Mixers - Countertop">
+                                    <option value="HL120">HL120</option>
+                                    <option value="HL200">HL200</option>
+                                    <option value="HL300">HL300</option>
+                                    <option value="HL400">HL400</option>
+                                    <option value="HL600">HL600</option>
+                                </optgroup>
+                                <optgroup label="Commercial Mixers - Floor">
+                                    <option value="HL600-Floor">HL600 Floor</option>
+                                    <option value="HL662">HL662 Pizza Dough</option>
+                                    <option value="HL800">HL800</option>
+                                    <option value="HL1400">HL1400</option>
+                                </optgroup>
+                                <optgroup label="Commercial Mixers - Specialty">
+                                    <option value="N50">N50 5-Quart</option>
+                                    <option value="Spiral-Mixer">Spiral Mixer</option>
+                                    <option value="HCM450">HCM450 Cutter Mixer</option>
+                                    <option value="HMM10">HMM10 Centerline</option>
+                                    <option value="HMM20">HMM20 Centerline</option>
+                                </optgroup>
+                                <optgroup label="Slicers">
+                                    <option value="HS6">HS6</option>
+                                    <option value="HS6N">HS6N</option>
+                                    <option value="HS7">HS7</option>
+                                    <option value="HS7N">HS7N</option>
+                                    <option value="HS8">HS8</option>
+                                    <option value="HS8N">HS8N</option>
+                                    <option value="HS9">HS9</option>
+                                    <option value="HS9N">HS9N</option>
+                                </optgroup>
+                                <optgroup label="Food Processors">
+                                    <option value="FP250">FP250</option>
+                                    <option value="Floor-Continuous-Feed">Floor Model Continuous-Feed</option>
+                                </optgroup>
+                                <optgroup label="Meat Room Equipment">
+                                    <option value="MG1532">MG1532 Mixer-Grinder</option>
+                                    <option value="MG2032">MG2032 Mixer-Grinder</option>
+                                </optgroup>
+                                <optgroup label="Specialty Prep Equipment">
+                                    <option value="Potato-Peeler">Potato Peeler</option>
+                                    <option value="Salad-Spinner">Salad Spinner/Dryer</option>
+                                    <option value="Power-Drive-Unit">Power Drive Unit</option>
                                 </optgroup>
                                 <option value="other">Other / Not Listed</option>
                             </select>
