@@ -476,7 +476,7 @@
                 </div>
 
                 <div class="auth-banner">
-                    Customer authenticated
+                    Customer authenticated. User pin: 1234.
                 </div>
 
                 <form id="supportForm" novalidate>
@@ -484,13 +484,13 @@
 
                         <div class="field">
                             <label for="company_name">Company Name</label>
-                            <input type="text" id="company_name" name="company_name" placeholder="Acme Logistics Inc."
+                            <input type="text" id="company_name" name="company_name" value="Whitmore's BBQ" placeholder="Acme Logistics Inc."
                                 autocomplete="organization" />
                         </div>
 
                         <div class="field">
                             <label for="contact_name">Contact Name</label>
-                            <input type="text" id="contact_name" name="contact_name" placeholder="Jane Smith"
+                            <input type="text" id="contact_name" name="contact_name" value="Jack Nimble" placeholder="Jane Smith"
                                 autocomplete="name" />
                         </div>
 
@@ -541,7 +541,7 @@
                                     <option value="HL1400">HL1400</option>
                                 </optgroup>
                                 <optgroup label="Commercial Mixers - Specialty">
-                                    <option value="N50">N50 5-Quart</option>
+                                    <option selected value="N50">N50 5-Quart</option>
                                     <option value="Spiral-Mixer">Spiral Mixer</option>
                                     <option value="HCM450">HCM450 Cutter Mixer</option>
                                     <option value="HMM10">HMM10 Centerline</option>
@@ -576,7 +576,7 @@
 
                         <div class="field">
                             <label for="serial_number">Serial Number</label>
-                            <input type="text" id="serial_number" name="serial_number" placeholder="e.g. D19J123456"
+                            <input type="text" id="serial_number" name="serial_number" value="XRB9234" placeholder="e.g. D19J123456"
                                 autocomplete="off" spellcheck="false" />
                             <span class="hint">Found on the label on the underside or back of the device.</span>
                         </div>
